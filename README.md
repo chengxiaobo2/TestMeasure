@@ -1,5 +1,5 @@
 <font size=4 color=#D2691E> 谈一谈Measure,layout 2019年05月10日 - </font>
-<font size=4 color=#D2691E> 再一次谈Measure,layout  2020年3月9日 </font>
+<font size=4 color=#D2691E> 再一次谈Measure,layout  2020年3月9日 （学完底层以后，接着补充）</font>
 
 ## 测量
 ### 关于测量
@@ -78,7 +78,7 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 4. onLayout中的 int left, int top, int right, int bottom 四个参数，我们什么时候会用到呢？<br>
   答：我们一般会用 `width=right-left` 以及`height=bottom-top` 计算自己的宽和高作为layout Children的时候的参考。  
 刚开始我之所以迷茫，可能对坐标系晕了，下图为坐标系:
- <img src="pic/2.png" ><br>
+ <img src="pic/2.png" width="1000" ><br>
 
 
 ## 布局
@@ -101,6 +101,15 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 4. layout过程完成，就是绘制过程了。
 
 ### 再研究 ？
-从安卓源码中，并没有发现 measure，layout，draw 的调用。至于谁调用的，什么时候调用的，以后再研究了。
-   
+从安卓源码中，并没有发现 measure，layout，draw 的调用。至于谁调用的，什么时候调用的，以后再研究了。  
+
+使用Systrace工具分析(发现不能分析出来)
+- handleMessageRefresh->doComposition->merge
+- handleMessageRefresh-> doComposition->drawlayer  
+不知道调用关系和这个有关系吗？
+
+使用profiler分析(涉及到底层的内容，得补充完底层再接着学习了)
+
+ <img src="pic/3.png" width="1600" ><br>
+ 可以很清楚的看到 Handler.handleCallback->Choreographer.doFrame->performTraversals-> onMeasure&onDraw
 
