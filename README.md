@@ -76,7 +76,10 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
    比如：LinearLayout的heightMeasureSpec中Mode为AT_MOST，Size为500。但是，我们测量完子View得到的高度为1000。这时候我们就得需要调用resolveSizeAndState来修正一下我们测量的值了。
 
 4. onLayout中的 int left, int top, int right, int bottom 四个参数，我们什么时候会用到呢？<br>
-  答：目前没有找到答案，作为一个待解决问题喽。
+  答：我们一般会用 `width=right-left` 以及`height=bottom-top` 计算自己的宽和高作为layout Children的时候的参考。  
+刚开始我之所以迷茫，可能对坐标系晕了，下图为坐标系:
+ <img src="pic/2.png" ><br>
+
 
 ## 布局
 
