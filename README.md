@@ -100,16 +100,25 @@ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 3. layout方法中，会调用onLayout方法,onLayout方法中，我们会在onLayout方法中layout自己的child。
 4. layout过程完成，就是绘制过程了。
 
-### 再研究 ？
+### 再研究 （暴风同事给了一些参考资料-需要继续研究）
 从安卓源码中，并没有发现 measure，layout，draw 的调用。至于谁调用的，什么时候调用的，以后再研究了。  
 
-使用Systrace工具分析(发现不能分析出来)
+<!-- 使用Systrace工具分析(发现不能分析出来)
 - handleMessageRefresh->doComposition->merge
 - handleMessageRefresh-> doComposition->drawlayer  
-不知道调用关系和这个有关系吗？
+不知道调用关系和这个有关系吗？ -->
 
 使用profiler分析(涉及到底层的内容，得补充完底层再接着学习了)
 
  <img src="pic/3.png" width="1600" ><br>
  可以很清楚的看到 Handler.handleCallback->Choreographer.doFrame->performTraversals-> onMeasure&onDraw
 
+ [引用陈炼文章-Android卡顿检测(一)BlockCanary](https://juejin.im/post/5d5665a3518825053c7d6c07)
+ ```java
+以UI渲染为例，主线程Choreographer(Android 4.1及以后)每16ms请求一个vsync信号，当信号到来时触发doFrame操作，它内部又依次进行了input、Animation、Traversal过程(具体流程分析参考好文Android Choreographer 源码分析)，而这些都是通过消息机制驱动的。
+ ```
+[Android Choreographer 源码分析](https://www.jianshu.com/p/996bca12eb1d)<br>
+
+[Choreographer原理-袁辉辉](http://gityuan.com/2017/02/25/choreographer/)<br>
+
+[袁辉辉的博客](http://gityuan.com/)
